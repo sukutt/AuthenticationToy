@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 
 class Auth extends Component {
     render() {
+        const {match} = this.props;
         return (
             <div>
-                Auth
+                <h2>Auth {match.params.name}</h2>
             </div>
         );
     }
