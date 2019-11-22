@@ -1,16 +1,20 @@
+import { hot } from 'react-hot-loader/root'
 import React, {Component} from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import App from './App';
-import { hot } from 'react-hot-loader'
+import { Provider } from 'react-redux';
 
 class Root extends Component {
     render() {
+        const { store } = this.props;
         return (
-            <BrowserRouter>
-                <Route path='/' component={App} />
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Route path='/' component={App} />
+                </BrowserRouter>
+            </Provider>
         )
     }
 }
 
-export default hot(module)(Root);
+export default hot(Root);
