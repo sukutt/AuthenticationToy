@@ -1,20 +1,36 @@
 import React, {Component} from 'react';
-import queryString from 'query-string';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as baseActions from 'redux/modules/base';
+import {AuthWrapper} from 'components/Auth';
+import { Login, Register } from 'containers/Auth';
+import { Route } from 'react-router-dom';
 
 class Auth extends Component {
+    componentDidMount() {
+        this.props.BaseActions.setHeaderVisibility(false);
+    }
+
+    componentWillUnmount() {
+        this.props.BaseActions.setHeaderVisibility(true);
+    }
+
     render() {
-        const {location, match} = this.props;
-        const query = queryString.parse(location.search);
-
-        const detail = query.detail === 'true';
-
         return (
-            <div>
-                <h2>Auth {match.params.name}</h2>
-                {detail && 'detail: blahblah'}
-            </div>
+            <AuthWrapper>
+                <Route path="/auth/login" component={Login}/>
+                <Route path="/auth/register" component={Register}/>
+            </AuthWrapper>
         );
     }
 }
 
-export default Auth;
+export default connect(
+    (state) => ({
+
+    }),
+
+    (dispatch) => ({
+        BaseActions: bindActionCreators(baseActions, dispatch),
+    })
+)(Auth);
